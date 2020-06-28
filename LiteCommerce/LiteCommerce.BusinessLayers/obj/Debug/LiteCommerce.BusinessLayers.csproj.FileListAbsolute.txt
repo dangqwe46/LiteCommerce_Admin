@@ -1,0 +1,10 @@
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.BusinessLayers.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.BusinessLayers.pdb
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csprojAssemblyReference.cache
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.pdb
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DataLayers.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DomainModels.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\bin\Debug\LiteCommerce.DomainModels.pdb
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.BusinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csproj.CopyComplete

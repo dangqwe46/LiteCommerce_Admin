@@ -1,0 +1,173 @@
+﻿@model LiteCommerce.Admin.Models.Order_Result
+@{
+    ViewBag.Title = "List Orders";
+    int i = 0;
+
+}
+
+<div class="box box-primary">
+
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+
+            <form action="~/Order" method="GET">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.customerID, SelectListHelper.ListCustomers(), new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.shipperID, SelectListHelper.ListShippers(), new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.employeeID, SelectListHelper.ListEmployees(), new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.ShipCountry, SelectListHelper.ListOfCountries(), new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchValue" placeholder="Input search value...">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary btn-flat">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="submit" class="btn btn-danger" name="method" value="delete">Delete</button>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- form start -->
+<form role="form" action="~/Order/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">
+            There are
+            <b>@Model.RowCount</b> Order. Page <b>@Model.Page/@Model.PageCount</b>
+        </div>
+
+    </div>
+    <div class="box-body box box-success">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th style="width:15px; color: blue;">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:10px; color: blue;">#</th>
+                    <th style="width:70px; color: blue;">CustomerID</th>                   
+                    <th style="width:300px; color: blue;text-align:center">Date</th>
+                    <th style="width:auto; color: blue;">Contact Info</th>
+                    <th style="width:auto; color: blue;text-align:center">Freight</th>
+                    <th style="width:20px; color: blue;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Data)
+                {
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="orderIDs" value="@item.OrderID" style=" display:block" />
+                        </td>
+                        <td>
+                            <div style=" display:block">
+                                @(++i)
+                            </div>
+                        </td>
+                        <td>
+                            <span style=" display:block"> <b>@item.CustomerID</b></span>
+
+                        </td>
+
+                        <td>
+                            <span style="display:block;text-align:center" class="fa fa-calendar-o" ><b>   </b>@item.OrderDate.ToString("dd/MM/yyyy")</span>
+                            <span style="display:block;text-align:center" class="fa fa-calendar-o" ><b>   </b>@item.RequiredDate.ToString("dd/MM/yyyy")</span>
+                            <span style="display:block;text-align:center" class="fa fa-calendar-o" ><b>   </b> @item.ShippedDate.ToString("dd/MM/yyyy")</span>
+                        </td>
+                        <td>
+                            <span style="display:block" class="fa fa-globe"><b>   </b> @item.ShipCountry</span>
+                            <span style="display:block" class="fa fa-map"> <b>   </b>@item.ShipCity</span>
+                            <span style="display:block" class="fa fa-address-card-o"><b>   </b>@item.ShipAddress</span>
+                        </td>
+                        <td>
+
+                            <span style="display:block;text-align:center" class="fa fa-truck"><b>   </b>@item.Freight</span>
+                        </td>
+                        <td class="text-center">
+
+                            <a class="btn btn-sm btn-primary " href="~/Order/Detail/@item.OrderID/">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+}
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm pull-right">
+
+            @{
+                int currentPage = Model.Page;
+                // Pagination head
+                if (currentPage - 5 > 0)
+                {
+                    int prePage = currentPage - 1;
+                    <li><a href="~/Order?page=1&searchValue=@Model.SearchValue&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">‹‹</a></li>
+                    <li><a href="~/Order?searchValue=@Model.SearchValue&page=@prePage&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">‹</a></li>
+                    <li><a href="#">...</a></li>
+                }
+                int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                for (int page = startPage; page <= currentPage; page++)
+                {
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Order?searchValue=@Model.SearchValue&page=@page&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Order?searchValue=@Model.SearchValue&page=@page&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">@page</a></li>
+                    }
+                }
+
+                // Pagination tail
+                int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                for (int page = currentPage + 1; page <= endPage; page++)
+                {
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Order?searchValue=@Model.SearchValue&page=@page&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Order?searchValue=@Model.SearchValue&page=@page&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">@page</a></li>
+                    }
+                }
+                if (currentPage + 4 < Model.PageCount)
+                {
+                    int nextPage = currentPage + 1;
+                    <li><a href="#">...</a></li>
+                    <li><a href="~/Order?searchValue=@Model.SearchValue&page=@nextPage&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">›</a></li>
+                    <li><a href="~/Order?searchValue=@Model.SearchValue&page=@Model.PageCount&ShipCountry=@Model.ShipCountry&EmployeeID=@Model.employeeID&ShipperID=@Model.shipperID&CustomerID=@Model.customerID">››</a></li>
+                }
+            }
+        </ul>
+    </div>
+

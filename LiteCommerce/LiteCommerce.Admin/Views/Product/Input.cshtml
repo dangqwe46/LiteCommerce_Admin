@@ -1,0 +1,220 @@
+﻿@model LiteCommerce.DomainModels.Product
+@{
+    int i = 0;
+}
+<div class="box box-primary">
+
+    <form action="~/Product/Input" method="post" enctype="multipart/form-data" name="register">
+        <div class="box-body">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4 style="font-weight: 600">Information Product</h4>
+                <a href="~/Product" style="margin-right: 10px;" class="pull-right">Back to list</a>
+            </div>
+
+            <div class="row">
+                @Html.Hidden("ProductID", Model.ProductID)
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Product Name</label>
+                        @Html.TextBox("ProductName", Model.ProductName, new { placeholder = "Enter Product Name", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Supplier</label>
+                        <select class="form-control" name="SupplierID">
+                            @foreach (var item in LiteCommerce.Admin.SelectListHelper.Supplier())
+                            {
+                                if (item.Value == Model.SupplierID.ToString())
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Category</label>
+                        <select class="form-control" name="CategoryID">
+                            @foreach (var item in LiteCommerce.Admin.SelectListHelper.Category())
+                            {
+                                if (item.Value == Model.CategoryID.ToString())
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Quantity Per Unit</label>
+                        @Html.TextBox("QuantityPerUnit", Model.QuantityPerUnit, new { placeholder = "Enter Quantity Per Unit", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Unit Price</label>
+                        @Html.TextBox("UnitPrice", Model.UnitPrice, new { placeholder = "Enter Unit Price", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Photo Path</label>
+                        <label for="image" style="width: 100%; cursor: pointer" title="Click vào đây để đổi ảnh (Kích thước 128KB)">
+                            <img src="~/Images/@Model.PhotoPath" class="img-thumbnail _avatar" style="width:250px" alt="Alternate Text" />
+                        </label>
+                        <input type="file" style="display: none" name="file" value="" id="image" accept="image/x-png, image/gif, image/jpeg" />
+                        <span style="color: red">@TempData["emptyFile"]</span>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1"  >Description</label>
+                        @Html.TextArea("Descriptions", Model.Descriptions, new { placeholder = "Enter Descriptions", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <button type="submit" id="submit" name="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a href="~/Product" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </form>
+    
+
+    @if (Model.ProductID != 0)
+    {
+        <h4 style="font-weight: 600; margin-bottom: 20px; margin-left: 12px">Information Product Attribute</h4>
+        <form action="~/Product/DeleteProductAttribute" method="post">
+            <div class="col-sm-8">
+            </div>
+            <div class="col-sm-4 text-right">
+                <button type="button" data-toggle="modal" data-target="#add-product_attr" class="btn btn-success"><i class="fa fa-plus"></i> Add Product Attribute</button>
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete product Attribute </button>
+            </div>
+            <input type="hidden" name="productID" value="@Model.ProductID" />
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" name="name" value="" class="listCheck" />
+                        </th>
+                        <th class="text-center">#</th>
+                        <th hidden></th>
+                        <th>Attribute Name</th>
+                        <th>Attribute Value</th>
+                        <th>Display Order</th>
+                        <th style="width: 80px" class="text-center">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewData["ProducAttribute"] != null)
+
+                    {
+                        foreach (var item in ViewData["ProducAttribute"] as List<LiteCommerce.DomainModels.ProductAttributes>)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="attributesIDs" value="@item.AttributeID" class="checkItem" />
+                                </td>
+                                <td class="text-center">@(++i)</td>
+                                <td hidden>@item.AttributeID</td>
+                                <td>@item.AttributeName</td>
+                                <td>@item.AttributeValues</td>
+                                <td>@item.DisplayOrder</td>
+                                <td class="text-center">
+                                    <button class="btn btn-default edit-product_attr" type="button" data-toggle="modal" data-target="#edit-product_attr_@item.AttributeID"><i class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    }
+</div>
+<div class="modal fade" id="add-product_attr" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title">ADD PRODUCT ATTRIBUTE</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="~/Product/InputProductAttribute" method="post" name="add">
+                <div class="modal-body">
+                    <input type="hidden" name="AttributeID" value="0" />
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <div class="form-group">
+                        <label>Attribute Name </label>
+                        <input class="form-control" type="text" name="AttributeName" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Attribute Value</label>
+                        <input class="form-control" type="text" name="AttributeValues" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Display Order</label>
+                        <input class="form-control" type="number" name="DisplayOrder" value="" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (ViewData["ProducAttribute"] != null)
+{
+    foreach (var item in ViewData["ProducAttribute"] as List<LiteCommerce.DomainModels.ProductAttributes>)
+    {
+        <div class="modal fade" id="edit-product_attr_@item.AttributeID" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title">EDIT PRODUCT ATTRIBUTE</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="~/Product/InputProductAttribute" method="post" name="edit">
+                        <div class="modal-body">
+                            <input type="hidden" class="AttributeID" name="AttributeID" value="@item.AttributeID" />
+                            <input type="hidden" class="ProductID" name="ProductID" value="@Model.ProductID" />
+                            <div class="form-group">
+                                <label>Attribute Name </label>
+                                <input class="form-control" type="text" name="AttributeName" value="@item.AttributeName" />
+                            </div>
+                            <div class="form-group">
+                                <label>Attribute Value</label>
+                                <input class="form-control" type="text" name="AttributeValues" value="@item.AttributeValues" />
+                            </div>
+                            <div class="form-group">
+                                <label>Display Order</label>
+                                <input class="form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}
+

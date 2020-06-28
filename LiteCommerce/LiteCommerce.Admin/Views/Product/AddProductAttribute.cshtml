@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Add Product Attribute";
+
+}
+<div class="box box-primary">
+    <form action="~/Product/Input_Attr" method="post">
+        <div class="box-body">
+            <div class="row">
+                <input type="hidden" name="AttributeID" value="0" />
+                <input type="hidden" name="ProductID" value="@TempData["productID"].ToString()" />
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Attribute Name</label>
+                        <input name="AttributeName" type="text" class="form-control" id="exampleInputPassword1" placeholder="Attribute Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Attribute Value</label>
+                        <input name="AttributeValues" type="text" class="form-control" id="exampleInputPassword1" placeholder="Attribute Value" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Display Order</label>
+                        <input name="DisplayOrder" type="number" class="form-control" id="exampleInputPassword1" placeholder="Display Order" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <div class="col-sm-12">
+                <button type="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a href="~/Product" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

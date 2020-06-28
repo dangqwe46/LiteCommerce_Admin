@@ -1,0 +1,145 @@
+﻿@model LiteCommerce.DomainModels.Supplier
+@{
+    List<SelectListItem> listCountry = SelectListHelper.ListOfCountries();
+
+}
+<div class="box box-primary">
+
+    <form role="form" action="~/Supplier/Input" method="post">
+        <div class="box-body">
+            <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
+            <div class="form-group">
+                <label>Company Name:</label>
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-building"></i>
+                    </div>
+                    <input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName">
+                    @Html.ValidationMessage("CompanyName")
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Contact Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <input type="text" class="form-control" name="ContactName" value="@Model.ContactName">
+                            @Html.ValidationMessage("ContactName")
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Contact Title:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-suitcase"></i>
+                            </div>
+                            <input type="text" class="form-control" name="ContactTitle" value="@Model.ContactTitle">
+                            @Html.ValidationMessage("ContactTitle")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label>Address:</label>
+
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-address-card"></i>
+
+                </div>
+                <input type="text" class="form-control" name="Address" value="@Model.Address">
+                @Html.ValidationMessage("Address")
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Country:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <select class="form-control" name="Country">
+
+                                @foreach (var item in listCountry)
+                                {
+                                    if (item.Value == Model.Country)
+                                    {
+                                        <option value="@item.Value" selected>@item.Text</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>City:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-map"></i>
+                            </div>
+                            <input type="text" class="form-control" name="City" value="@Model.City">
+                            @Html.ValidationMessage("City")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Phone:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+                            @Html.ValidationMessage("Phone")
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Fax:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-fax"></i>
+                            </div>
+                            <input type="text" class="form-control" name="Fax" value="@Model.Fax">
+                            @Html.ValidationMessage("Fax")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label>Home page:</label>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-link"></i>
+                        </div>
+                        <input type="text" class="form-control" name="HomePage" value="@Model.HomePage">
+                        @Html.ValidationMessage("HomePage")
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <a href="/Supplier" type="button" class="btn btn-danger ">Cancel</a>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+

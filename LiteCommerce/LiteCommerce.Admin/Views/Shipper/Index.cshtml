@@ -1,0 +1,83 @@
+﻿@model LiteCommerce.Admin.Models.Shipper_Result
+@{
+    ViewBag.Title = "Manage Shippers";
+    int i = 0;
+}
+<!-- general form elements -->
+<div class="box box-primary">
+    <!-- form start -->
+    <form role="form">
+        <div class="box-body">
+            <div class="input-group input-group-sm">
+                <form action="~/Shipper" method="get" class="form-control">
+                    <input name="searchValue" type="text" class="form-control" placeholder="Input search value" value="@Model.SearchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </form>
+</div>
+<form role="form" action="~/Shipper/Delete" method="post" >
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8"> There are <b>@Model.RowCount</b> shippers. </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a type="button" href="~/Shipper/Input" class="btn btn-primary">Add Shipper</a>
+                <button type="submit" class="btn btn-danger" name="method" value="delete">Delete Shipper</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    <div class="box box-success">
+        <!-- form start -->
+        <form role="form">
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:30px"> <input type="checkbox" /></th>
+                            <th style="width:50px">#</th>
+                            <th style="width:300px">Name</th>
+                            <th style="width:auto">Phone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in @Model.Data)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="shipperIDs" value="@item.ShipperID" />
+                                </td>
+                                <td>@(++i)</td>
+                                <td>
+                                    <span style="color:#0838f6 ; font-weight:bold; display:block"> @item.CompanyName</span>
+
+                                </td>
+                                <td>
+                                    <span style="display:block">@item.Phone</span>
+
+
+                                </td>
+
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-primary " href="~/Shipper/Input/@item.ShipperID/">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+
+
+        </form>
+    </div>
+
+</form>

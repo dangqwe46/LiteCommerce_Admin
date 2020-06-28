@@ -1,0 +1,123 @@
+﻿@model LiteCommerce.Admin.Models.ProductPaginationResult
+@{
+    ViewBag.Title = "Manage Product";
+    List<SelectListItem> ListCategory = SelectListHelper.Category();
+    List<SelectListItem> listSupplier = SelectListHelper.Supplier();
+    int i = 0;
+}
+
+<div class="box box-primary">
+    <form action="~/Product" method="GET">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.DropDownListFor(m => m.Category, SelectListHelper.Category(), new { @class = "form-control" })
+                    @*<select name="CategoryID" class="form-control" value="CategoryID">
+                            <option value="">--- Choose Category ---</option>
+                            @foreach (var item in ListCategory)
+                            {
+
+                                <option value="@item.Value">@item.Text</option>
+
+                            }
+                        </select>*@
+                </div>
+                <div class="col-sm-3">
+                    @Html.DropDownListFor(m => m.Supplier, SelectListHelper.Supplier(), new { @class = "form-control" })
+                    @*<select name="SupplierID" class="form-control" value="SupplierID">
+                            <option value="">--- Choose Supplier ---</option>
+                            @foreach (var item in listSupplier)
+                            {
+
+                                <option value="@item.Value">@item.Text</option>
+
+                            }
+                        </select>*@
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchValue" placeholder="Input search value...">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<form role="form" action="~/Product/Delete" method="post">
+
+    <div class="container-fluid row " style="margin-bottom:10px">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Product. Page @Model.Page/@Model.PageCount
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Product/Input" class="btn btn-sm btn-primary">Add Product</a>
+                <button type="submit" class="btn btn-sm btn-danger" name="method" value="delete">Delete Products</button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:auto">Product Name</th>
+                        <th style="width:200px">Quantity Per Unit</th>
+                        <th style="width:200px">Unit Price</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="ProductIDs" value="@item.ProductID" />
+                            </td>
+                            <td>@(++i)</td>
+                            <td>
+                                <span class="lc-span-1">
+                                    @item.ProductName
+                                </span>
+                            </td>
+                            <td>
+                                <span class="lc-span-4">@item.QuantityPerUnit</span>
+                            </td>
+                            <td>
+                                <span class="lc-span-4">@item.UnitPrice</span>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-primary" href="~/Product/Detail/@item.ProductID">
+                                    <i class="fa fa-info-circle">   Info</i>
+                                </a>
+                                <a class="btn btn-sm btn-primary" href="~/Product/Input/@item.ProductID/">
+                                    <i class="fa fa-pencil-square-o">Edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Product?searchValue=">«</a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                }
+                <li><a href="~/Product?page=t&searchValue=@Model.SearchValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+</form>

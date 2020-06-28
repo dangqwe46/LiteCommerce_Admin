@@ -1,0 +1,4 @@
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.DomainModels\bin\Debug\LiteCommerce.DomainModels.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.DomainModels\bin\Debug\LiteCommerce.DomainModels.pdb
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.DomainModels\obj\Debug\LiteCommerce.DomainModels.dll
+C:\Users\dangq\Desktop\ASP.NET MVC\LiteCommerce\LiteCommerce.DomainModels\obj\Debug\LiteCommerce.DomainModels.pdb

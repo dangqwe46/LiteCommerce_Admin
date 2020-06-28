@@ -1,0 +1,156 @@
+﻿@model LiteCommerce.DomainModels.Customer
+@{
+    List<SelectListItem> listCountry = SelectListHelper.ListOfCountries();
+
+}
+
+
+    <div class="box box-primary">
+
+        <form role="form" action="~/Customer/Input" method="post">
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label>CusotmerID</label>
+                    <input type="text" name="CustomerID" class="form-control" value="@Model.CustomerID">
+                </div>
+
+
+                <div class="form-group">
+                    <label>Company Name</label>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-building"></i>
+                        </div>
+                        <input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName">
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Contact Name</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" name="ContactName" value="@Model.ContactName">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Conatact Title</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-suitcase"></i>
+                                </div>
+                                <input type="text" class="form-control" name="ContactTitle" value="@Model.ContactTitle">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Address" value="@Model.Address">
+                    </div>
+                    <!-- /.input group -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Country</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-globe"></i>
+                                </div>
+                                <select class="countrypicker form-control" data-flag="true" name="Country">
+                                    @foreach (var item in listCountry)
+                                    {
+                                        if (item.Value == Model.Country)
+                                        {
+                                            <option value="@item.Value" name="Country" selected>@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value" name="Country">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+
+
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>City</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-map"></i>
+                                </div>
+                                <input type="text" class="form-control" name="City" value="@Model.City">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>phone</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fax</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-fax"></i>
+                                </div>
+                                <input type="text" class="form-control" name="Fax" value="@Model.Fax">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                    <a href="/Customer" type="button" class="btn btn-danger ">Cancel</a>
+                </div>
+
+
+                <!-- /.input group -->
+            </div>
+
+
+        </form>
+
+    </div>

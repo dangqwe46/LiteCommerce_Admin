@@ -1,0 +1,120 @@
+﻿@model LiteCommerce.Admin.Models.EmployeePaginatonResult
+@{
+    ViewBag.Title = "Employeers Manage";
+    int i = 0;
+    List<SelectListItem> listcountry = SelectListHelper.ListOfCountries();
+}
+
+
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form method="GET" action="~/Employee">
+            <div class="row">
+                <div class="col-sm-6">
+                    <select name="Country" class="form-control" value="Country">
+                        
+                        @foreach (var item in listcountry )
+                        {
+                           
+                            
+                                <option value="@item.Value">@item.Text</option>
+                            
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input name="searchValue" type="text" class="form-control" placeholder="@Model.SearchValue">
+                        <div class="input-group-btn">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info btn-flat">Seach</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<form action="~/Employee/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">There are <b>@Model.RowCount</b> employees. Page @Model.Page/@Model.PageCount </b></div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a class="btn btn-sm btn-primary btn-ffa" href="~/Employee/Input">Add Employee</a>
+                <button type="submit" name="method" value="delete" class="btn btn-sm btn-danger btn-ffa">Delete Employees</button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:15px; text-align:center"><input type="checkbox" /></th>
+                        <th style="width:10px; text-align:center">#</th>
+                        <th style="width:180px"> Infor</th>
+                        <th style="width:150px">Address</th>
+                        <th style="width:130px">Contact</th>
+                        <th style="width:auto">Notes</th>
+                        <th style="width:140px">Photo</th>
+                        <th style="width:35px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td align="center"><input type="checkbox" name="employeeIDs" value="@item.EmployeeID" /></td>
+                            <td align="center">@(++i)</td>
+                            <td>
+                                <span style="display:block ;font-weight:bold">@item.FirstName @item.LastName</span>
+                                <span style="display:block;font-weight:bold">@item.Title</span>
+                                <span style="display:block">Birthdate : @item.BirthDate.ToShortDateString()</span>
+                                <span style="display:block">HireDate : @item.HireDate.ToShortDateString()</span>
+                            </td>
+                            <td>
+                                <span style="display:block">@item.Address</span>
+                                @item.City - @item.Country
+                            </td>
+                            <td>
+                                <span class="fa fa-phone" style="display:block;margin:3px 5px;"> @item.HomePhone</span>
+                                <span class="fa fa-envelope" style="display:block;margin:3px 5px;"> @item.Email</span>
+                            </td>
+                            <td>
+                                <div style=" display: block; display: -webkit-box; max-width: 100%; height: 58px; margin: 0 auto; font-size: 14px; line-height: 1; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                    @item.Notes
+                                </div>
+
+                            </td>
+                            <td align="center">
+                                <img src="@item.PhotoPath" alt="@item.PhotoPath" style="max-height:100px;max-width:80px" />
+                            </td>
+
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="~/Employee/Input/@item.EmployeeID/">
+                                    <i class="fa fa-edit">
+                                    </i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="~/Employee?searchValue=">«</a></li>
+                    @for (int page = 1; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                    <li><a href="~/Employee?page=t&searchValue=@Model.SearchValue">»</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</form>

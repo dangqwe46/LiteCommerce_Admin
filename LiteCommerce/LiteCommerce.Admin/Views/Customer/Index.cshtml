@@ -1,0 +1,99 @@
+﻿@model LiteCommerce.Admin.Models.CustomerPaginationResult
+@{
+    ViewBag.Title = "Manage Customers";
+    int i = 0;
+
+}
+<!-- general form elements -->
+<div class="box box-primary">
+    <!-- form start -->
+    <form role="form">
+        <div class="box-body">
+            <div class="input-group input-group-sm">
+                <form action="~/Customer" method="get" class="form-control">
+                    <input name="searchValue" type="text" class="form-control" placeholder="@Model.SearchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<form role="form" action="~/Customer/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8"> There are <b>@Model.RowCount</b> customers. Page @Model.Page/@Model.PageCount</div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a type="button" href="~/Customer/Input" class="btn btn-primary">Add Customer</a>
+                <button type="submit" class="btn btn-danger" name="method" value="delete">Delete Customer</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    <div class="box box-success">
+        <!-- form start -->
+
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px"> <input type="checkbox" /></th>
+                        <th style="width:50px">#</th>
+                        <th style="width:auto">Company Name</th>
+                        <th style="width:300px">Address</th>
+                        <th style="width:200px">Contact Info</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.Data)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="customerIDs" value="@item.CustomerID" />
+                            </td>
+                            <td>@(++i)</td>
+                            <td>
+                                <span style="color:#0838f6 ; font-weight:bold; display:block"> @item.CompanyName</span>
+                                <span style="color:#646464">@item.ContactName: </span>
+                                <span style="font-weight:bold">@item.ContactTitle</span>
+                            </td>
+                            <td>
+                                <span style="display:block">@item.Address</span>
+                                <span> @item.City-@item.Country</span>
+
+                            </td>
+                            <td>
+                                <span style="display:block" class="fa fa-phone"> @item.Phone</span>
+                                <span style="display:block" class="fa fa-fax">@item.Fax</span>
+                            </td>
+
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-primary " href="~/Customer/Input/@item.CustomerID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm pull-right">
+                <li><a href="~/Customer?page=1&SearchValue=@Model.SearchValue"><i class="fa fa-angle-left"></i></a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li><a href="~/Customer?page=@page&SearchValue=@Model.SearchValue">@page</a></li>
+                }
+                <li><a href="~/Customer?page=@Model.PageCount&SearchValue=@Model.SearchValue"><i class="fa fa-angle-right"></i></a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</form>

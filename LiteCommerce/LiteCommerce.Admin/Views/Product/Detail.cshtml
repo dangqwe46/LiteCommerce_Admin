@@ -1,0 +1,219 @@
+﻿@model LiteCommerce.DomainModels.Product
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Information Product</h3>
+        <div class="pull-right"><a href="~/Product">Back to list</a></div>
+    </div>
+    <div class="box-body">
+
+        <form role="form" method="post" action="~/Product/Control">
+            <div class="box-body row">
+                @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="hidden" name="ProductID" value="@Model.DataProducts.ProductID" />
+                            <label for="exampleInputPassword1">Product name <span style="color:red;">(*)</span></label>
+                            <input type="text" name="ProductName" class="form-control" id="exampleInputPassword1" placeholder="Enter Product name" value="@Model.DataProducts.ProductName">
+                            <div style="color:red;">
+                                @Html.ValidationMessage("ErrorProductName")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Quantity per unit</label>
+                                    <input type="text" name="QuantityPerUnit" class="form-control" id="exampleInputPassword1" placeholder="Enter Quantity per unit" value="@Model.DataProducts.QuantityPerUnit">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Unit Price</label>
+                                    <input type="text" name="UnitPrice" class="form-control" id="exampleInputPassword1" placeholder="Enter Unit Price" value="@Model.DataProducts.UnitPrice">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Images</label>
+                            <input type="file" id="exampleInputFile">
+
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Supplier ID</label>
+                                    <select class="form-control" name="SupplierID">
+                                        @foreach (var item in LiteCommerce.BusiniessLayer.CatalogBLL.Suppliers_CompanyName())
+                                        {
+                                            if (item.SupplierID == Model.DataProducts.SupplierID)
+                                            {
+                                                <option value="@item.SupplierID" selected>@item.CompanyName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.SupplierID">@item.CompanyName</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Catogory ID</label>
+                                    <select class="form-control" name="CategoryID">
+                                        @foreach (var item in LiteCommerce.BusiniessLayer.CatalogBLL.Category_CategoryName())
+                                        {
+                                            if (item.CategoryID == Model.DataProducts.CategoryID)
+                                            {
+                                                <option value="@item.CategoryID" selected>@item.CategoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CategoryID">@item.CategoryName</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Descrpition</label>
+                            <textarea class="form-control" name="Descriptions" rows="3" placeholder="Enter Descrpition...">@Model.DataProducts.Descriptions</textarea>
+                        </div>
+                    </div>*@
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Name Product:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.ProductName</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Category:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    @foreach (var item in @LiteCommerce.BusinessLayers.CatalogBLL.Category_CategoryName())
+                                    {
+                                        if (item.CategoryID == Model.CategoryID)
+                                        {
+                                            <span>@item.CategoryName</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Supplier:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    @foreach (var item in LiteCommerce.BusinessLayers.CatalogBLL.Suppliers_CompanyName())
+                                    {
+                                        if (item.SupplierID == Model.SupplierID)
+                                        {
+
+                                            <span>@item.CompanyName</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Quantity Per Unit:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.QuantityPerUnit</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Unit Price:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.UnitPrice</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Description:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div>@Model.Descriptions</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <img src="~/Images/@Model.PhotoPath" style="width: 100%; height: 250px; object-fit: contain;" alt="Alternate Text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Product Attribute</h3>
+            </div>
+            <div class="box box-success">
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sw-30">
+                                    <input type="checkbox" />
+                                </th>
+                                <th class="sw-50">#</th>
+                                <th class="sw-100">Product Name</th>
+                                <th class="sw-200">AttributeName</th>
+                                <th class="sw-200">AttributeValues</th>
+                                <th class="sw-200">DisplayOrder</th>
+                                <th class="sw-100"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-align">
+                            @foreach (var item in ViewData["Attribute"] as List<LiteCommerce.DomainModels.ProductAttributes>)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="productIDs" value="@item.AttributeID" />
+                                    </td>
+                                    <td>
+                                        @item.AttributeID
+                                    </td>
+                                    <td>
+                                        <span>@LiteCommerce.BusinessLayers.CatalogBLL.GetProduct(item.ProductID).ProductName</span>
+                                    </td>
+                                    <td>
+                                        @item.AttributeName
+                                    </td>
+                                    <td>
+                                        @item.AttributeValues
+                                    </td>
+                                    <td>
+                                        @item.DisplayOrder
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <a href="~/Product/Input/@item.ProductID" class="btn btn-primary center-block">
+                                            <i class="fa fa-info"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer pull-right">
+            </div>
+        </form>
+    </div>
+</div>
